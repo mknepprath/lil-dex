@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct PokemonApp: App {
+    @StateObject private var store = PokemonStore()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(store: store)
         }
     }
 }
