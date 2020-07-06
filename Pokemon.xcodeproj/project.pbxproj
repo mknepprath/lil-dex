@@ -43,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		220CA48524B2DAE20004FE34 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		22BDCCB324AE260A003F66C9 /* PokemonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonApp.swift; sourceTree = "<group>"; };
 		22BDCCB424AE260A003F66C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		22BDCCB524AE260C003F66C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		22BDCCAD24AE260A003F66C9 = {
 			isa = PBXGroup;
 			children = (
+				220CA48524B2DAE20004FE34 /* README.md */,
 				22BDCCB224AE260A003F66C9 /* Shared */,
 				22BDCCBC24AE260C003F66C9 /* iOS */,
 				22BDCCC324AE260C003F66C9 /* macOS */,
