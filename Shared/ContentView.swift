@@ -5,6 +5,13 @@
 //  Created by Michael Knepprath on 7/2/20.
 //
 
+// TODO:
+// - Add search
+// - Swipe to mark as caught
+// - Swipe to unmark
+// - Display store Pokémon, API response for search only
+// - Scrape Pokémon Go data to cross-reference
+
 import SwiftUI
 
 // PokéAPI

@@ -17,14 +17,26 @@ extension Double {
     }
 }
 
-struct PokemonDetails: Codable {
+struct PokemonSprite: Codable {
+    var front_default: String
+}
+
+struct PokemonDetailsResponse: Codable {
     var name: String
+    var sprites: PokemonSprite
+    var weight: Double
+}
+
+struct PokemonDetails {
+    var name: String
+    var image: UIImage?
     var weight: Double
 }
 
 let testDetails = PokemonDetails(
     name: "bulbasaur",
-    weight: 40
+    image: nil,
+    weight: 0
 )
 
 struct PokemonDetail: View {
@@ -37,14 +49,16 @@ struct PokemonDetail: View {
         VStack {
             Spacer(minLength: 0)
             
-//            Image(pokemon.url)
-//                .resizable()
-//                .aspectRatio(contentMode: zoomed ? .fill : .fit)
-//                .onTapGesture {
-//                    withAnimation {
-//                        zoomed.toggle()
-//                    }
-//                }
+            if details.image != nil {
+                Image(uiImage: details.image!)
+                    .resizable()
+                    .aspectRatio(contentMode: zoomed ? .fill : .fit)
+                    .onTapGesture {
+                        withAnimation {
+                            zoomed.toggle()
+                        }
+                    }
+            }
             
             if details.weight != 0 {
                 Text("\(Double(round(details.weight * 0.22)).removeZerosFromEnd())lbs")
@@ -81,15 +95,31 @@ struct PokemonDetail: View {
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 // decode the response into our Pokemon struct
-                if let decodedResponse = try? JSONDecoder().decode(PokemonDetails.self, from: data) {
+                if let decodedResponse = try? JSONDecoder().decode(PokemonDetailsResponse.self, from: data) {
                         DispatchQueue.main.async {
-                            // set the Pokemon based on the API response
-                            self.details = PokemonDetails(
-                                name: decodedResponse.name,
-                                weight: decodedResponse.weight
-                            )
-                            // we're no longer "loading"
-                            self.loading = false
+                            if let imageURL = URL(string: decodedResponse.sprites.front_default) {
+                                   print(imageURL)
+                                   if let data = try? Data(contentsOf: imageURL) {
+                                       print(data)
+                                        // set the Pokemon based on the API response
+                                        self.details = PokemonDetails(
+                                            name: decodedResponse.name,
+                                            image: UIImage(data: data)!,
+                                            weight: decodedResponse.weight
+                                        )
+                                        // we're no longer "loading"
+                                        self.loading = false
+                                   }
+                               }
+                            
+//                            // set the Pokemon based on the API response
+//                            self.details = PokemonDetails(
+//                                name: decodedResponse.name,
+//                                image: image,
+//                                weight: decodedResponse.weight
+//                            )
+//                            // we're no longer "loading"
+//                            self.loading = false
                         }
                     
                         return
